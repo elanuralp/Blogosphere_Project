@@ -1,0 +1,55 @@
+<header>
+  <input type="checkbox" name="" id="checkbox1">
+  <div class="d-flex align-items-center justify-content-between">
+    <button class="button-top-bar-logo" (click)='changeCategory(0)' (click)='selectWhichTypeHasPriority("Homepage")'>
+      <a href="" class="logo d-flex align-items-center">
+        <img src="../../assets/img/as.png" alt="">
+        <span class="d-none d-lg-block">Blogosphere</span>
+      </a>
+    </button>
+  </div>
+  <div class="search-box">
+    <form action="">
+      <input type="text" name="search" id="search-bar" placeholder="Search" [(ngModel)]="enteredSearchValue" (input)="onSearchTextChanged()">
+      <button type="submit" (click)="listSearchedContents()" (click)='selectWhichTypeHasPriority("Search")'><img src="../../assets/img/loupe.png" alt="image"><a href="/home">  .</a></button>
+    </form>
+  </div>
+  <ul class="nav-bar">
+    <li><button class="button-trends" (click)="listTrends()" (click)='selectWhichTypeHasPriority("Trends")'><a href="">Trends</a></button></li>
+    <li>
+      <a>Categories <img src="../../assets/img/down-arrow.png" alt="" class="dropdown-img"></a>
+      <ul class="dropdown" style="border-bottom: 0.2em solid white; border-left: 0.2em solid white; border-right: 0.2em solid white;">
+        <div *ngFor="let item of categoriess">
+          <li><button class="button-top-bar" (click)='changeCategory(item.categoryId)' (click)='selectWhichTypeHasPriority(item.categoryId.toString())'><a href="">{{item.categoryTitle}}</a> </button></li>
+        </div>
+      </ul>
+    </li>
+    <li><a routerLink="/contact">Contact</a></li>
+  </ul>
+  <div class="menu">
+    <label for="checkbox1" >
+      <img src="../../assets/img/meat.png" alt="">
+    </label>
+  </div>
+  <ul class="profile">
+    <li *ngIf="loggedInUser">
+      <a routerLink="/profil/{{userId}}" class="mr-60 username">
+        <img src="../../assets/img/user.png" alt="" class="profile-img">
+        <span class="username">{{ loggedInUser.userName }}</span>
+      </a>
+      <ul *ngIf="loggedInUser.userType=='editor'" class="editor-profile" style="border-bottom: 0.2em solid white; border-left: 0.2em solid white; border-right: 0.2em solid white;">
+        <li><a routerLink="" (click)="logout()">Sign Out</a></li>
+        <li><a routerLink="/content-details/-1" >New Content</a></li>
+      </ul>
+      <ul *ngIf="loggedInUser.userType!='editor'" style="border-bottom: 0.2em solid white; border-left: 0.2em solid white; border-right: 0.2em solid white;">
+        <li><a routerLink="" (click)="logout()">Sign Out</a></li>
+      </ul>
+    </li>
+    <li *ngIf="!loggedInUser">
+      <a routerLink="/login">Sign In</a>
+      <ul style="border-bottom: 0.2em solid white; border-left: 0.2em solid white; border-right: 0.2em solid white;">
+        <li><a routerLink="/register">Sign Up</a></li>
+      </ul>
+    </li>
+  </ul>
+</header>

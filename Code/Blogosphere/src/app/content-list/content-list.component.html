@@ -1,0 +1,25 @@
+<div class="list-group" *ngFor="let item of contents">
+    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="d-flex w-100 justify-content-between align-items-center">
+        <h5 class="mb-1">{{item.title}}</h5>
+        <div>
+          <small class="text-muted date">{{item.publishDate}}      </small>
+          <a routerLink="/content-details/{{item.contentId}}" class="btn btn-success" *ngIf="item.visibility!=0" (click)="setContentDetail(item.contentId);">See details</a>
+          <a routerLink="/content-details/{{item.contentId}}" class="btn btn-danger" *ngIf="item.visibility==0" (click)="setContentDetail(item.contentId);">See details</a>
+        </div>
+      </div>
+    </a>
+</div>
+<div class="row mt-3" id="pagination-row">
+  <div class="col d-flex justify-content-center mb-3">
+      <div class="btn-group">
+          <button
+          *ngFor="let item of pageNumbers"
+          (click)="changePage(item)"
+          class="btn btn-outline-success" aria-pressed="true"
+          [class.active]="item==selectedPage">
+          {{item}}
+          </button>
+      </div>
+  </div>
+</div>

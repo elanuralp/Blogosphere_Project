@@ -1,0 +1,32 @@
+.b-card{
+  border-radius: 1.5em;
+}
+
+.navbar-content{
+  margin-top: 60px;
+  background-color:#D6D6D6;
+}
+
+.all-div-style-mark {
+  background-image: url("../../assets/img/s.jpg");
+  background-attachment: fixed;
+  /*background-color: #E3E3E3; */
+  margin-top: 60px;
+}
+
+.card{
+  height: 90%;
+  padding: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom:60px;
+  background-color:beige;
+}
+
+.container{
+margin-top: 60px;
+}
+
+

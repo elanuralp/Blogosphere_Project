@@ -1,0 +1,118 @@
+<main>
+    <section>
+        <div class="all-div-style-mark">
+            <div class="container">
+                <div *ngIf="this.ID != -1" class="row align-items-top justify-content-center">
+                    <!--Content Detail Part-->
+                    <div class="card align-items-center col-md-9">
+                        <div class="card-body">
+                            <h2 class="card-title text-center title-content">{{content.title}}</h2>
+                            <h5 class="card-title text-center sub-title-content">{{content.shortDescription}}</h5>
+                        </div>
+                        <img id="content-detail-img" src="" class="card-img-bottom content-img w-75 image-corner-rad" alt="...">
+                        <p class="card-text article-props">{{content.content1}}</p>
+                    </div>
+
+                    <!-- LIKE PART!!! -->
+                    <div class="like-card d-flex justify-content-end border border-dark rounded col-md-9 bg-white">
+                        <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        <button class="btn btn-lg" id="green" (click)="clickLike()" onclick="
+                            var btn2 = document.querySelector('#red');
+                            if (btn2.classList.contains('red')) {
+                                btn2.classList.remove('red');
+                            }
+                            this.classList.toggle('green');
+                            ">
+                            <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-lg" id="red" (click)="clickDislike()" onclick="
+                            var btn1 = document.querySelector('#green');
+                            if (btn1.classList.contains('green')) {
+                                btn1.classList.remove('green');
+                            }
+                            this.classList.toggle('red');
+                            ">
+                            <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="loggedInUser.userType == 'admin'" id="block-btn" class="btn btn-lg"><i class="fa fa-ban fa-lg" aria-hidden="true" (click)="clickBlockContent()" onclick=""></i></button>
+                    </div> <!--Ending LIKE PART!!! -->
+
+                    <div class="container mt-5 mb-5"> <!-- Comment Part!!!-->
+                        <div class="d-flex justify-content-center row">
+                            <div class="d-flex flex-column col-md-9">
+                                <div
+                                    class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4" style="border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                                    <div class="d-flex flex-column ml-3">
+                                        <div class="d-flex flex-row post-title">
+                                            <h5 style="margin-top: 0.3em; color: rgb(70,70,70);">Comments &nbsp;</h5><span class="ml-2" style="margin-top: 0.4em;">({{loggedInUser.userName}})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="coment-bottom bg-white p-2 px-4" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                                    <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img
+                                            class="img-fluid img-responsive rounded-circle mr-2"
+                                            src="../../assets/img/user.png" width="38"><input type="text"
+                                            class="form-control mr-3 comment-input" id="created-comment" placeholder="Add comment"><button
+                                            class="btn btn-success text-white" type="button" (click) = "clickComment()">Comment</button></div>
+                                <div *ngFor="let item of comments">       
+                                    <div class="commented-section mt-2">
+                                        <div class="d-flex flex-row align-items-center commented-user">
+                                            <h5 class="mr-2" style="color: rgb(55,55,55);">{{item.user.userName}}</h5><span class="dot mb-1"></span><span
+                                                class="mb-1 ml-2" style="color: rgb(200,200,200);margin-right: 0px;margin-left: auto;">{{item.comment.publishDate.replaceAll("T"," ").replaceAll("-", "/").slice(0, item.comment.publishDate.lastIndexOf(":"))}}</span>
+                                        </div>
+                                        <div class="comment-text-sm" style="color: rgb(70,70,70);border-bottom: 0.1em solid rgb(240, 240, 240); padding-bottom: 2.1em;"><span>- {{item.comment.commentContent}}</span></div>
+                                    </div><br>
+                                </div>
+                                </div> <!-- Comment Part!!!   End-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div *ngIf="this.ID == -1 && (loggedInUser.userType == 'editor' || loggedInUser.userType == 'admin')" class="container-margin">
+                    <form class="row g-3">
+                        <div class="col-md-12">
+                          <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingName" placeholder="Your Name">
+                            <label for="floatingName">Title</label>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-sm-10">
+                              <input class="form-control" type="file" id="formFile" accept=".jpg">
+                            </div>
+                          </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 300px;"></textarea>
+                            <label for="floatingTextarea">Content Detail</label>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                          <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="State">
+                              <option *ngFor="let category of categoriess" value="{{category.categoryId}}">{{category.categoryTitle}}</option>
+                            </select>
+                            <label for="floatingSelect">Category</label>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-floating">
+                              <input type="text" class="form-control" id="shortDescription" placeholder="Short Description">
+                              <label for="floatingName">Short Description</label>
+                            </div>
+                          </div>
+                        <div class="text-center mb-3">
+                          <button type="submit" class="btn btn-primary mx-3 text-white" (click)="clickUploadContentButton()">Submit</button>
+                          <button type="reset" class="btn btn-secondary mx-3 text-white" (click)="resetContentDetails()">Reset</button>
+                        </div>
+                      </form>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</main>
